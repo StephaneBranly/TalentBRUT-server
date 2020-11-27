@@ -14,6 +14,6 @@
         $subject = "[".$data->tag."] ".$data->object;
         $messageC = $data->message."<br/><div>Message envoye depuis le site.</div>";
     
-        mail("stephane.branly@etu.utc.fr", $subject, $messageC, $headers);
+        mail($serverMail, $subject, $messageC, $headers);
     } 
 ?>
