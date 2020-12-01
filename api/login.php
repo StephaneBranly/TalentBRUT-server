@@ -2,9 +2,8 @@
     session_start();
     include_once("../lib/includes.php");
 
-    $_SESSION['from']=secure_post('from');
-
-
+    if(isset($_GET['from']))
+        $_SESSION['from']=secure_get('from');
 
     global $casURL;    
     $myUrl = "http://".$_SERVER['HTTP_HOST'].strtok($_SERVER["REQUEST_URI"],'?');
@@ -24,7 +23,7 @@
             $_SESSION['user'] = $data['user'];
             $_SESSION['prenom'] = $data['prenom'];
             $last_page = secure_session('from');
-            if($last_page) echo "<script type='text/javascript'>setTimeout(\"{document.location.href='$last_page';};\", 2000);</script>";
+            if($last_page) echo "<script type='text/javascript'>setTimeout(\"{document.location.href='$last_page';};\", 100);</script>";
         }
     }
     else 

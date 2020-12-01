@@ -5,8 +5,6 @@
 
     if(check_origin())
     {
-        $json = file_get_contents('php://input');
-        $data = json_decode($json);
         if($data->token)
         {
             $response['user']=secure_session('user');
