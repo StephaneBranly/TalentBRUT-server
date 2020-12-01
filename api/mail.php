@@ -4,7 +4,7 @@
 
     $response = array();
 
-    if(isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['HTTP_ORIGIN']==$clientURL)
+    if(check_origin())
     {
         $json = file_get_contents('php://input');
         $data = json_decode($json);
@@ -17,22 +17,11 @@
         $subject = "[".$data->tag."] ".$data->object;
         $messageC = $data->message."<br/><div>Message envoye depuis le site.</div>";
     
-        if(mail($serverMail, $subject, $messageC, $headers))
-        {
-            $response["message"] = 'Mail sent'; 
-            $response["status"] = 200; 
-        }
-        else
-        {
-            $response["message"] = 'Internal Server Error'; 
-            $response["status"] = 500; 
-        }
+        if(mail($serverMail, $subject, $messageC, $headers)) 
+            quick_response(200,'Mail sent');
+        else       
+            quick_response(500,'Internal Server Error');
     } 
     else 
-    {
-        $response["message"] = 'Wrong origin'; 
-        $response["status"] = 403; 
-    }
-
-    echo json_encode($response);
+        quick_response(403,'Wrong origin');
 ?>
