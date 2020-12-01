@@ -1,8 +1,7 @@
 <?php
     header('Content-Type: application/json');
     include_once("../lib/includes.php");
-
-    $response = array();
+    session_start();
 
     if(check_origin())
     {
@@ -10,10 +9,10 @@
         $data = json_decode($json);
         if($data->token)
         {
-            $myUrl = "http://".$_SERVER['HTTP_HOST'].strtok($_SERVER["REQUEST_URI"],'?');
-            $cas = new Cas($casUrl, $myUrl);
-            $response = $cas->authenticate($data->token);
-            echo (json_encode($response));
+            $response['user']=secure_session('user');
+            $response['status']=200;
+            $response['message']="Connected";
+            echo json_encode($response);
         }
         else       
             quick_response(501,'Missing parameters');

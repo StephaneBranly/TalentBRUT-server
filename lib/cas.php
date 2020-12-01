@@ -22,7 +22,7 @@
 
         public function authenticate($token)
         {
-            $response = file_get_contents($this->casUrl.'serviceValidate?service='.$this->url.'&ticket='.$_GET['ticket']);
+            $response = file_get_contents($this->casUrl.'serviceValidate?service='.$this->url.'&ticket='.$token);
             if (empty($response)) return -1;
 
             $user = Xml::parseCasReturn($response);
