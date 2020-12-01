@@ -22,6 +22,7 @@
             $data["token"]=$ticket;
             $_SESSION['user'] = $data['user'];
             $_SESSION['prenom'] = $data['prenom'];
+            $_SESSION['connected'] = true;
             $last_page = secure_session('from');
             if($last_page) echo "<script type='text/javascript'>setTimeout(\"{document.location.href='$last_page';};\", 100);</script>";
         }

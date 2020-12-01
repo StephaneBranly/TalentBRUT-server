@@ -1,21 +1,17 @@
 <?php
     header('Content-Type: application/json');
     include_once("../lib/includes.php");
+
     session_start();
 
-    if(check_origin())
-    {
-        if($data->token)
-        {
-            $response['user']=secure_session('user');
-            $response['status']=200;
-            $response['message']="Connected";
-            echo json_encode($response);
-        }
-        else       
-            quick_response(501,'Missing parameters');
-    
-    }
-    else 
-        quick_response(403,'Wrong origin');
+    $response['user']=secure_session('user');
+    $response['status']=200;
+    $response['connected']=secure_session('connected');
+    if(secure_session('connected'))
+        $response['message']="connected";
+    else
+        $response['message']="not connected";
+
+    echo json_encode($response);
+   
 ?>
