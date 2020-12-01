@@ -1,7 +1,8 @@
 <?php
+
     function check_origin()
     {
-        $clientURL = "https://assos.utc.fr";
+        global $clientURL;
         return (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['HTTP_ORIGIN']==$clientURL);
     }
 
